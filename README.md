@@ -6,7 +6,13 @@ A terraform module providing a Redis ElastiCache cluster in AWS.
 This module
 
 - Stuff this module does
+- Creates redis ElastiCache clusters
+- Creates and manages a Security group
+- Creates some standard alerts
 
+- [ ] Add Security group
+- [ ] Add cloudwatch alarms - something similar to
+https://github.com/azavea/terraform-aws-redis-elasticache/blob/develop/main.tf
 
 
 ----------------------
