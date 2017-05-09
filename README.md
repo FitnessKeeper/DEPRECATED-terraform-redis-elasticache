@@ -5,52 +5,54 @@ A terraform module providing a Redis ElastiCache cluster in AWS.
 
 This module
 
-- Stuff this module does
 - Creates redis ElastiCache clusters
-- Creates and manages a Security group
-- Creates some standard alerts
-
-- [ ] Add Security group
-- [ ] Add cloudwatch alarms - something similar to
-https://github.com/azavea/terraform-aws-redis-elasticache/blob/develop/main.tf
-
+- Create, manage and export a Security group
 
 ----------------------
 #### Required
 - `env" - "env to deploy into, should typically dev/staging/prod"
+- `name` - "Name for the Redis replication group i.e. UserObject"
+- `redis_clusters` - "Number of Redis cache clusters (nodes) to create"
+- `subnets` - "List of VPC Subnet IDs for the cache subnet group"
 - `vpc_id"  - "VPC ID"
+
 
 #### Optional
 
-- `cluster_size` " - "Consul cluster size. This must be greater the 3, defaults to 3"
+- `apply_immediately` - "Specifies whether any modifications are applied immediately, or during the next maintenance window. Default is false."
+- `allowed_cidr` - "A list of Security Group ID's to allow access to. Defaults to localhost"
+- `allowed_security_groups` - "A list of Security Group ID's to allow access to. Defaults to empty list"
+- `redis_failover` - "Defaults to false"
+- `redis_node_type` - "Instance type to use for creating the Redis cache clusters Defaults to cache.t2.micro"
+- `redis_port` - "Defaults to 6379"
+- `redis_version` - "Redis version to use, defaults to 3.2.4"
 
 Usage
 -----
 
 ```hcl
-module "consul-cluster" {
-  source                     = "./terraform-consul-cluster"
-  alb_log_bucket             = "some-bucket-name"             # "some-bucket-name"
-  cluster_size               = 3                              # Must be 3 or more
-  dns_zone                   = "example.com"                  # "example.com."
-  ecs_cluster_id             = "${module.ecs.cluster_id}"
-  env                        = "dev"                          # dev/staging/prod
-  join_ec2_tag               = "dev-infra ECS Node"           # "dev-infra ECS Node"
-  subnets                    = ["10.0.0.0/24", "10.0.1.0/24"] # List of networks
-  vpc_id                     = "vpc-e1234567"                 # "vpc-e1234567"
-  sha_htpasswd_hash          = "consul:{SHA}zblahblah="       # "consul:{SHA}z...="
-  oauth2_proxy_htpasswd_file = "/conf/htpasswd"               # "path to httpsswd file"
-  oauth2_proxy_provider      = "github"                       # This module is designed to use github
-  oauth2_proxy_github_org    = "FitnessKeeper"                # Github Org
-  oauth2_proxy_github_team   = "devops"
-  oauth2_proxy_client_id     = "0d440bd55527cfe3149e"
-  oauth2_proxy_client_secret = "04b17e65fb10g96ff88fa2a4edad48528777e75b"
+module "redis" {
+  source = "../modules/terraform-redis-elasticache"
+  env            = "${var.env}"
+  name           = "thtest"
+  redis_clusters = "2"
+  redis_failover = "true"
+  subnets        = "${module.vpc.database_subnets}"
+  vpc_id         = "${module.vpc.vpc_id}"
 }
-
 ```
 
 Outputs
 =======
+
+- `redis_security_group_id`
+- `parameter_group`
+- `redis_subnet_group_name`
+- `redis_subnet_group_ids`
+- `id`
+- `port`
+- `endpoint` 
+- `configuration_endpoint_address`
 
 
 Authors

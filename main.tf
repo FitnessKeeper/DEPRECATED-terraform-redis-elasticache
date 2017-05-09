@@ -33,34 +33,3 @@ resource "aws_elasticache_subnet_group" "redis_subnet_group" {
   name       = "tf-redis-${var.name}-${data.aws_vpc.vpc.tags["Name"]}"
   subnet_ids = ["${var.subnets}"]
 }
-
-resource "aws_security_group" "redis_security_group" {
-  name        = "tf-sg-ec-${var.name}-${data.aws_vpc.vpc.tags["Name"]}"
-  description = "Terraform-managed ElastiCache security group for ${var.name}-${data.aws_vpc.vpc.tags["Name"]}"
-  vpc_id      = "${var.vpc_id}"
-
-  tags {
-    Name = "tf-sg-ec-${var.name}-${data.aws_vpc.vpc.tags["Name"]}"
-  }
-}
-/*
-# evaluate these  - https://www.terraform.io/docs/providers/aws/r/security_group.html#ingress
-# ingress blocks allow passing lists as an input, where as group_rules only allow a single SG/CIDR blocks
-resource "aws_security_group_rule" "redis_application_ingress" {
-  type                     = "ingress"
-  from_port                = "${var.redis_port}"
-  to_port                  = "${var.redis_port}"
-  protocol                 = "tcp"
-  source_security_group_id = "${var.application_security_group}"
-  security_group_id        = "${aws_security_group.redis_security_group.id}"
-}
-
-resource "aws_security_group_rule" "redis_dba_ingress" {
-  type                     = "ingress"
-  from_port                = "${var.redis_port}"
-  to_port                  = "${var.redis_port}"
-  protocol                 = "tcp"
-  source_security_group_id = "${aws_security_group.dba_security_group.id}"
-  security_group_id        = "${aws_security_group.redis_security_group.id}"
-}
-*/
