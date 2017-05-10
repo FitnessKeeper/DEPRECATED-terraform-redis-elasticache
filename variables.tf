@@ -1,5 +1,5 @@
 /*
-# These vars would be used by cloudwatch.tf and should be uncommented if we decide to use them. 
+# These vars would be used by cloudwatch.tf and should be uncommented if we decide to use them.
 variable "alarm_cpu_threshold" {
   default = "75"
 }
@@ -48,7 +48,7 @@ variable "redis_failover" {
 
 variable "redis_node_type" {
   description = "Instance type to use for creating the Redis cache clusters"
-  default     = "cache.t2.micro"
+  default     = "cache.m3.medium"
 }
 
 variable "redis_port" { default = 6379 }
