@@ -6,7 +6,7 @@ A terraform module providing a Redis ElastiCache cluster in AWS.
 This module
 
 - Creates Redis ElastiCache clusters
-- Create, manage and export a Security group
+- Creates, manages, and exports a security group
 
 ----------------------
 #### Required
@@ -22,8 +22,8 @@ This module
 - `apply_immediately` - "Specifies whether any modifications are applied immediately, or during the next maintenance window. Default is false."
 - `allowed_cidr` - "A list of Security Group ID's to allow access to. Defaults to localhost"
 - `allowed_security_groups` - "A list of Security Group ID's to allow access to. Defaults to empty list"
-- `redis_failover` - "Defaults to false"
-- `redis_node_type` - "Instance type to use for creating the Redis cache clusters Defaults to cache.t2.micro"
+- `redis_failover` - "Defaults to false , for failover to work, node type must larger then t2, and redis_cluster must be greater then 1"
+- `redis_node_type` - "Instance type to use for creating the Redis cache clusters Defaults to cache.m3.medium"
 - `redis_port` - "Defaults to 6379"
 - `redis_version` - "Redis version to use, defaults to 3.2.4"
 
