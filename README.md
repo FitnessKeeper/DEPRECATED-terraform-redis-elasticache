@@ -5,7 +5,7 @@ A terraform module providing a Redis ElastiCache cluster in AWS.
 
 This module
 
-- Creates redis ElastiCache clusters
+- Creates Redis ElastiCache clusters
 - Create, manage and export a Security group
 
 ----------------------
@@ -51,7 +51,7 @@ Outputs
 - `redis_subnet_group_ids`
 - `id`
 - `port`
-- `endpoint` 
+- `endpoint`
 - `configuration_endpoint_address`
 
 
@@ -62,3 +62,5 @@ Authors
 
 License
 =======
+
+[MIT License](LICENSE)
